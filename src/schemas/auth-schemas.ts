@@ -35,16 +35,15 @@ const registerSchema = z
 				message:
 					'رمز عبور باید حداقل یک حرف کوچک، یک حرف بزرگ و دست‌کم دو عدد داشته باشد'
 			}),
-		confirmPassword: z
-			.string({
-				required_error
-			})
-			.min(8)
+		confirmPassword: z.string({
+			required_error
+		})
 	})
 	.superRefine((data, ctx) => {
 		if (data.password !== data.confirmPassword) {
 			ctx.addIssue({
 				code: z.ZodIssueCode.custom,
+				path: ['confirmPassword'],
 				message: 'رمز عبور مطابقت ندارد'
 			})
 		}

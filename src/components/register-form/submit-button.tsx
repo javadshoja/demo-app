@@ -1,7 +1,15 @@
 import { Button } from '../ui/button'
 
-const SubmitButton = () => {
-	return <Button type='submit'>ثبت نام</Button>
+type Props = {
+	disabled: boolean
+}
+
+const SubmitButton = ({ disabled }: Props) => {
+	return (
+		<Button type='submit' disabled={disabled}>
+			ثبت نام
+		</Button>
+	)
 }
 
 export { SubmitButton }

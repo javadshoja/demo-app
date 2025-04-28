@@ -16,6 +16,10 @@ import { EmailInput } from './inputs/email-input'
 import { FullNameInput } from './inputs/full-name-input'
 import { PasswordInput } from './inputs/password-input'
 import { SubmitButton } from './submit-button'
+import { useMutation } from '@tanstack/react-query'
+import { postRegister } from '@/services/auth-services'
+import { toast } from 'sonner'
+
 const RegisterForm = () => {
 	const form = useForm<RegisterRequest>({
 		resolver: zodResolver(registerSchema),
@@ -28,10 +32,18 @@ const RegisterForm = () => {
 		}
 	})
 
+	const { mutate: register, isPending } = useMutation({
+		mutationFn: postRegister,
+		onSuccess: data => {
+			toast(data?.message)
+		},
+		onError: error => {
+			toast.error(error.message)
+		}
+	})
+
 	function onSubmit(values: RegisterRequest) {
-		// Do something with the form values.
-		// ✅ This will be type-safe and validated.
-		console.log(values)
+		register(values)
 	}
 
 	return (
@@ -41,7 +53,8 @@ const RegisterForm = () => {
 					<CardHeader>
 						<CardTitle className='text-2xl'>ثبت نام</CardTitle>
 						<CardDescription>
-							برای ثبت نام نام و ناو خانوادگی و ایمیل و پسورد خود را وارد کنید.
+							برای ثبت نام ،نام و نام خانوادگی ، ایمیل و رمز عبور خود را وارد
+							کنید.
 						</CardDescription>
 					</CardHeader>
 
@@ -60,7 +73,7 @@ const RegisterForm = () => {
 								<ConfirmPasswordInput control={form.control} />
 
 								<div className='flex justify-end'>
-									<SubmitButton />
+									<SubmitButton disabled={isPending} />
 								</div>
 							</form>
 						</Form>
