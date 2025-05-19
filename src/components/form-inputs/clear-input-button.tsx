@@ -40,8 +40,8 @@ const ClearInputButton = <
 				onClick={handleClearInput}
 			>
 				<CircleX
-					size={24}
-					strokeWidth={2}
+					size={20}
+					strokeWidth={1}
 					aria-hidden='true'
 					className={cn({
 						'text-red-500 dark:text-red-200': !!error
