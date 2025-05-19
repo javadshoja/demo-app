@@ -19,6 +19,7 @@ import { useMutation } from '@tanstack/react-query'
 import { postRegister } from '@/services/auth-services'
 import { toast } from 'sonner'
 import InputField from '../form-inputs/input-field'
+import { useRef } from 'react'
 
 const RegisterForm = () => {
 	const form = useForm<RegisterRequest>({
@@ -41,6 +42,8 @@ const RegisterForm = () => {
 			toast.error(error.message)
 		}
 	})
+
+	const inputRef = useRef<HTMLInputElement>(null)
 
 	function onSubmit(values: RegisterRequest) {
 		register(values)
@@ -67,8 +70,11 @@ const RegisterForm = () => {
 								<InputField
 									control={form.control}
 									name='fullName'
-									placeholder='نام'
 									label='نام و نام خانوادگی'
+									inputProps={{
+										ref: inputRef,
+										placeholder: 'نام و نام خانوادگی'
+									}}
 								/>
 
 								<EmailInput control={form.control} />

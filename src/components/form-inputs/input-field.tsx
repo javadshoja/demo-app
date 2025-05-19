@@ -7,6 +7,7 @@ import { ControllerProps } from 'react-hook-form'
 import { FieldPath } from 'react-hook-form'
 import { FieldValues } from 'react-hook-form'
 import { ClearInputButton } from './clear-input-button'
+import mergeRefs from 'merge-refs'
 
 const InputField = <
 	TFieldValues extends FieldValues = FieldValues,
@@ -15,7 +16,7 @@ const InputField = <
 	...props
 }: Omit<ControllerProps<TFieldValues, TName>, 'render'> & {
 	label: string
-	placeholder: string
+	inputProps: React.ComponentProps<typeof Input>
 }) => {
 	const inputRef = useRef<HTMLInputElement>(null)
 
@@ -29,9 +30,9 @@ const InputField = <
 					<div className='relative'>
 						<FormControl>
 							<Input
-								placeholder={props.placeholder}
 								{...field}
-								ref={inputRef}
+								{...props.inputProps}
+								ref={mergeRefs(inputRef, props.inputProps.ref)}
 							/>
 						</FormControl>
 
