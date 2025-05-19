@@ -1,3 +1,4 @@
+import InputField from '@/components/form-inputs/input-field'
 import {
 	FormControl,
 	FormField,
@@ -15,19 +16,11 @@ type Props = {
 
 const FullNameInput: React.FC<Props> = ({ control }) => {
 	return (
-		<FormField
-			control={control}
+		<InputField
+			control={form.control}
 			name='fullName'
-			render={({ field }) => (
-				<FormItem>
-					<FormLabel>نام و نام خانوادگی</FormLabel>
-
-					<FormControl>
-						<Input placeholder='نام' {...field} />
-					</FormControl>
-					<FormMessage />
-				</FormItem>
-			)}
+			placeholder='نام'
+			label='نام و نام خانوادگی'
 		/>
 	)
 }

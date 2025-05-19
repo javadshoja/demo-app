@@ -13,12 +13,12 @@ import {
 } from '../ui/card'
 import { ConfirmPasswordInput } from './inputs/confirm-password-input'
 import { EmailInput } from './inputs/email-input'
-import { FullNameInput } from './inputs/full-name-input'
 import { PasswordInput } from './inputs/password-input'
 import { SubmitButton } from './submit-button'
 import { useMutation } from '@tanstack/react-query'
 import { postRegister } from '@/services/auth-services'
 import { toast } from 'sonner'
+import InputField from '../form-inputs/input-field'
 
 const RegisterForm = () => {
 	const form = useForm<RegisterRequest>({
@@ -64,7 +64,12 @@ const RegisterForm = () => {
 								onSubmit={form.handleSubmit(onSubmit)}
 								className='space-y-8'
 							>
-								<FullNameInput control={form.control} />
+								<InputField
+									control={form.control}
+									name='fullName'
+									placeholder='نام'
+									label='نام و نام خانوادگی'
+								/>
 
 								<EmailInput control={form.control} />
 
